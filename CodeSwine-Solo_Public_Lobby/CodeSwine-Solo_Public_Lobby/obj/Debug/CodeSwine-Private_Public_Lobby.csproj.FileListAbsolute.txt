@@ -65,3 +65,23 @@ C:\Users\PC-XFXX\Desktop\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby
 C:\Users\PC-XFXX\Desktop\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Solo_Public_Lobby.application
 C:\Users\PC-XFXX\Desktop\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Solo_Public_Lobby.exe
 C:\Users\PC-XFXX\Desktop\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Solo_Public_Lobby.pdb
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\bin\Debug\CodeSwine-Solo_Public_Lobby.exe.config
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\bin\Debug\CodeSwine-Solo_Public_Lobby.exe
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\bin\Debug\CodeSwine-Solo_Public_Lobby.pdb
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\bin\Debug\Newtonsoft.Json.dll
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\bin\Debug\Newtonsoft.Json.xml
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Private_Public_Lobby.csprojAssemblyReference.cache
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\Interop.NetFwTypeLib.dll
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Private_Public_Lobby.csproj.ResolveComReference.cache
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\MainWindow.g.cs
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\App.g.cs
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Solo_Public_Lobby_MarkupCompile.cache
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Solo_Public_Lobby_MarkupCompile.lref
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\MainWindow.baml
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Solo_Public_Lobby.g.resources
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine_Solo_Public_Lobby.Properties.Resources.resources
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Private_Public_Lobby.csproj.GenerateResource.cache
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Private_Public_Lobby.csproj.CoreCompileInputs.cache
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Private_Public_Lobby.csproj.CopyComplete
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Solo_Public_Lobby.exe
+D:\Instalki\!Portable\GTA5O Solo Public Session\source\CodeSwine-Solo_Public_Lobby\CodeSwine-Solo_Public_Lobby\obj\Debug\CodeSwine-Solo_Public_Lobby.pdb
