@@ -30,6 +30,8 @@ namespace CodeSwine_Solo_Public_Lobby
 
         private bool set = false;
         private bool active = false;
+        private bool suspended = false;
+        private bool active_alternative = false;
 
         public MainWindow()
         {
@@ -68,6 +70,7 @@ namespace CodeSwine_Solo_Public_Lobby
                     FirewallRule.DeleteRules();
                     SetIpCount();
                     UpdateNotActive();
+                    UpdateNotActive(true);
                 }
             }
         }
@@ -84,12 +87,13 @@ namespace CodeSwine_Solo_Public_Lobby
                 FirewallRule.DeleteRules();
                 SetIpCount();
                 UpdateNotActive();
+                UpdateNotActive(true);
             }
         }
 
         private void SetIpCount()
         {
-            lblAmountIPs.Content = addresses.Count() + " IPs whitelisted!";
+            lblAmountIPs.Content = addresses.Count() + " IPs whitelisted";
         }
 
         private void btnEnableDisable_Click(object sender, RoutedEventArgs e)
@@ -97,53 +101,120 @@ namespace CodeSwine_Solo_Public_Lobby
             SetRules();
         }
 
-        void SetRules()
+        private void btnAltEnableDisable_Click(object sender, RoutedEventArgs e)
+        {
+            SetRules(true);
+        }
+
+        private void btnSuspend_Click(object sender, RoutedEventArgs e)
+        {
+            Suspend();
+        }
+
+        void SetRules(bool alternative = false)
         {
             string remoteAddresses = RangeCalculator.GetRemoteAddresses(addresses);
 
             // If the firewall rules aren't set yet.
             if (!set)
             {
-                FirewallRule.CreateInbound(remoteAddresses, true, false);
-                FirewallRule.CreateOutbound(remoteAddresses, true, false);
+                FirewallRule.CreateInbound(remoteAddresses, true, false, alternative);
+                FirewallRule.CreateOutbound(remoteAddresses, true, false, alternative);
                 active = true;
+                active_alternative = alternative;
                 set = true;
-                UpdateActive();
+                UpdateActive(alternative);
+                return;
+            }
+
+            if (active && active_alternative != alternative)
+            {
                 return;
             }
 
             // If they are set but not enabled.
             if (set && !active)
             {
-                FirewallRule.CreateInbound(remoteAddresses, true, true);
-                FirewallRule.CreateOutbound(remoteAddresses, true, true);
+                FirewallRule.CreateInbound(remoteAddresses, true, true, alternative);
+                FirewallRule.CreateOutbound(remoteAddresses, true, true, alternative);
                 active = true;
-                UpdateActive();
+                active_alternative = alternative;
+                UpdateActive(alternative);
                 return;
             }
 
             // If they are active and set.
             if(active && set)
             {
-                FirewallRule.CreateInbound(remoteAddresses, false, true);
-                FirewallRule.CreateOutbound(remoteAddresses, false, true);
-                UpdateNotActive();
+                FirewallRule.CreateInbound(remoteAddresses, false, true, alternative);
+                FirewallRule.CreateOutbound(remoteAddresses, false, true, alternative);
+                UpdateNotActive(alternative);
                 active = false;
             }
         }
 
-        void UpdateNotActive()
+        void UpdateNotActive(bool alternative = false)
         {
-            btnEnableDisable.Background = ColorBrush.Red;
-            image4.Source = new BitmapImage(new Uri("/CodeSwine-Solo_Public_Lobby;component/ImageResources/unlocked.png", UriKind.Relative));
-            lblLock.Content = "Rules not active." + Environment.NewLine + "Click to activate!";
+            if (alternative)
+            {
+                btnAltEnableDisable.Background = ColorBrush.Red;
+                imageAlt4.Source = new BitmapImage(new Uri("/CodeSwine-Solo_Public_Lobby;component/ImageResources/unlocked.png", UriKind.Relative));
+                lblAltLock.Content = "Rules #2 not active" + Environment.NewLine + "Click to activate";
+            }
+            else
+            {
+                btnEnableDisable.Background = ColorBrush.Red;
+                image4.Source = new BitmapImage(new Uri("/CodeSwine-Solo_Public_Lobby;component/ImageResources/unlocked.png", UriKind.Relative));
+                lblLock.Content = "Rules #1 not active" + Environment.NewLine + "Click to activate";
+            }
         }
 
-        void UpdateActive()
+        void UpdateActive(bool alternative = false)
         {
-            btnEnableDisable.Background = ColorBrush.Green;
-            image4.Source = new BitmapImage(new Uri("/CodeSwine-Solo_Public_Lobby;component/ImageResources/locked.png", UriKind.Relative));
-            lblLock.Content = "Rules active." + Environment.NewLine + "Click to deactivate!";
+            if (alternative)
+            {
+                btnAltEnableDisable.Background = ColorBrush.Green;
+                imageAlt4.Source = new BitmapImage(new Uri("/CodeSwine-Solo_Public_Lobby;component/ImageResources/locked.png", UriKind.Relative));
+                lblAltLock.Content = "Rules #2 active" + Environment.NewLine + "Click to deactivate";
+                UpdateNotActive();
+            }
+            else
+            {
+                btnEnableDisable.Background = ColorBrush.Green;
+                image4.Source = new BitmapImage(new Uri("/CodeSwine-Solo_Public_Lobby;component/ImageResources/locked.png", UriKind.Relative));
+                lblLock.Content = "Rules #1 active" + Environment.NewLine + "Click to deactivate";
+                UpdateNotActive(true);
+            }
+        }
+
+        void Suspend()
+        {
+            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.FileName = "cmd.exe";
+            
+            if (suspended)
+            {
+                startInfo.Arguments= "/C pssuspend.exe -nobanner -r gta5.exe";
+                suspended = false;
+                
+                btnSuspend.Background = ColorBrush.Red;
+                imageSuspend4.Source = new BitmapImage(new Uri("/CodeSwine-Solo_Public_Lobby;component/ImageResources/unlocked.png", UriKind.Relative));
+                lblSuspendLock.Content = "Suspend game";
+            }
+            else
+            {
+                startInfo.Arguments= "/C pssuspend.exe -nobanner gta5.exe";
+                suspended = true;
+                
+                btnSuspend.Background = ColorBrush.Green;
+                imageSuspend4.Source = new BitmapImage(new Uri("/CodeSwine-Solo_Public_Lobby;component/ImageResources/locked.png", UriKind.Relative));
+                lblSuspendLock.Content = "Unsuspend game";
+            }
+            
+            process.StartInfo = startInfo;
+            process.Start();
         }
 
         [DllImport("User32.dll")]
@@ -160,6 +231,8 @@ namespace CodeSwine_Solo_Public_Lobby
 
         private HwndSource _source;
         private const int HOTKEY_ID = 9000;
+        private const int HOTKEY_ID_ALT = 9001;
+        private const int HOTKEY_ID_SUSPEND = 9002;
 
         protected override void OnSourceInitialized(EventArgs e)
         {
@@ -182,9 +255,19 @@ namespace CodeSwine_Solo_Public_Lobby
         private void RegisterHotKey()
         {
             var helper = new WindowInteropHelper(this);
+            const uint VK_F9 = 0x78;
             const uint VK_F10 = 0x79;
+            const uint VK_F11 = 0x7A;
             const uint MOD_CTRL = 0x0002;
             if (!RegisterHotKey(helper.Handle, HOTKEY_ID, MOD_CTRL, VK_F10))
+            {
+                
+            }
+            if (!RegisterHotKey(helper.Handle, HOTKEY_ID_ALT, MOD_CTRL, VK_F11))
+            {
+                
+            }
+            if (!RegisterHotKey(helper.Handle, HOTKEY_ID_SUSPEND, MOD_CTRL, VK_F9))
             {
                 
             }
@@ -194,6 +277,8 @@ namespace CodeSwine_Solo_Public_Lobby
         {
             var helper = new WindowInteropHelper(this);
             UnregisterHotKey(helper.Handle, HOTKEY_ID);
+            UnregisterHotKey(helper.Handle, HOTKEY_ID_ALT);
+            UnregisterHotKey(helper.Handle, HOTKEY_ID_SUSPEND);
         }
 
         private IntPtr HwndHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -208,16 +293,35 @@ namespace CodeSwine_Solo_Public_Lobby
                             OnHotKeyPressed();
                             handled = true;
                             break;
+                        case HOTKEY_ID_ALT:
+                            OnHotKeyPressed(true);
+                            handled = true;
+                            break;
+                        case HOTKEY_ID_SUSPEND:
+                            Suspend();
+                            handled = true;
+                            break;
                     }
                     break;
             }
             return IntPtr.Zero;
         }
 
-        private void OnHotKeyPressed()
+        private void OnHotKeyPressed(bool alternative = false)
         {
-            SetRules();
-            System.Media.SystemSounds.Hand.Play();
+            SetRules(alternative);
+
+            if (alternative == active_alternative)
+            {
+                if (active)
+                {
+                    System.Media.SystemSounds.Asterisk.Play();
+                }
+                else
+                {
+                    System.Media.SystemSounds.Hand.Play();
+                }
+            }
         }
     }
 }

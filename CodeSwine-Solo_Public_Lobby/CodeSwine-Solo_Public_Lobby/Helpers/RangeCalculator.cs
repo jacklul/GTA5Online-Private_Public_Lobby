@@ -49,12 +49,12 @@ namespace CodeSwine_Solo_Public_Lobby.Helpers
         {
             if (list.Count > 0)
             {
-                string scope = "1.1.1.1-";
+                string scope = "0.0.0.1-";
                 foreach (IPAddress ip in list)
                 {
                     scope += Substract(ip) + "," + Add(ip) + "-";
                 }
-                scope += "255.255.255.254";
+                scope += "255.255.255.255";
                 return scope;
             }
             return "";
