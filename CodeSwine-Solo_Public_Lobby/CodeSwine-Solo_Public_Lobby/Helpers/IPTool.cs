@@ -27,41 +27,50 @@ namespace CodeSwine_Solo_Public_Lobby.Helpers
         private string GrabInternetAddress()
         {
             // Still needs check to see if we could retrieve the IP.
+            // Try for ipv6 first, but if that fails get ipv4
             string ip = "";
             try
             {
-                ip = new WebClient().DownloadString("http://icanhazip.com");
+                ip = new WebClient().DownloadString("https://ipv6.icanhazip.com");
             }
             catch (Exception e)
             {
                 ErrorLogger.LogException(e);
-                ip = "IP not found.";
+
+                try
+                {
+                    ip = new WebClient().DownloadString("https://ipv4.icanhazip.com");
+                }
+                catch (Exception e2)
+                {
+                    ErrorLogger.LogException(e2);
+                    ip = "IP not found.";
+                }
             }
             return ip;
         }
 
-        /// <summary>
-        /// Validates IP Address.
-        /// </summary>
-        /// <param name="ipString"></param>
-        /// <returns>Bool True or False.</returns>
-        public static bool ValidateIPv4(string ipString)
+        public static bool ValidateIP(string ipString)
         {
             if (String.IsNullOrWhiteSpace(ipString))
             {
                 return false;
             }
 
-            string[] splitValues = ipString.Split('.');
-
-            if (splitValues.Length != 4)
+            IPAddress address;
+            if (IPAddress.TryParse(ipString, out address))
             {
-                return false;
+                switch (address.AddressFamily)
+                {
+                    case System.Net.Sockets.AddressFamily.InterNetwork:
+                        // we have IPv4 
+                        return true;
+                    case System.Net.Sockets.AddressFamily.InterNetworkV6:
+                        // we have IPv6
+                        return true;
+                }
             }
-
-            byte tempForParsing;
-
-            return splitValues.All(r => byte.TryParse(r, out tempForParsing));
+            return false;
         }
     }
 }
